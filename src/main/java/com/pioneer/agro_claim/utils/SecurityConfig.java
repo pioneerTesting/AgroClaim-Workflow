@@ -27,8 +27,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // 🔹 This method was missing! Adding it now.
-    @Bean
+    /*@Bean
     public CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
@@ -38,5 +37,20 @@ public class SecurityConfig {
         config.setAllowCredentials(true);
         source.registerCorsConfiguration("/**", config);
         return source;
+    }*/
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.addAllowedOriginPattern("*"); // Allow all origins
+        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allow all HTTP methods
+        config.setAllowedHeaders(List.of("*")); // Allow all headers
+        config.setAllowCredentials(true); // Allow authentication-related headers (like Authorization)
+
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
+
 }
